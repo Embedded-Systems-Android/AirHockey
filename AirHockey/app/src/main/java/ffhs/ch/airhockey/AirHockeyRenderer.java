@@ -65,8 +65,8 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer{
                 0.5f, 0f,
 
                 // Mallets
-                4.5f, 2f,
-                4.5f, 12f
+                0f, -0.25f,
+                0f, 0.25f
         };
         vertexData = ByteBuffer.allocateDirect(tableVerticesWithTriangles.length * BYTES_PER_FLOAT).order(ByteOrder.nativeOrder()).asFloatBuffer();
         vertexData.put(tableVerticesWithTriangles);
