@@ -51,9 +51,9 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer{
         this.context = context;
         float[] tableVerticesWithTriangles={
                 // Triangle 1
-                0f, 0f,
-                9f, 14f,
-                0f, 14f,
+                -0.5f, -0.5f,
+                0.5f, 0.5f,
+                -0.5f, 0.5f,
 
                 // Triangle 2
                 0f, 0f,
