@@ -52,7 +52,7 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
 
     private int aColorLocation;
 
-    private static final int STRIDE = (POSITION_COMPONENT_COUNT +COLOR_COMPONENT_COUNT) * BYTES_PER_FLOAT;
+    private static final int STRIDE = (POSITION_COMPONENT_COUNT + COLOR_COMPONENT_COUNT) * BYTES_PER_FLOAT;
 
     public AirHockeyRenderer(Context context) {
         this.context = context;
@@ -94,29 +94,39 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
         String vertexShaderSource = TextResourceReader.readTextFileFromResource(context, R.raw.simple_vertex_shader);
         String fragmentShaderSource = TextResourceReader.readTextFileFromResource(context, R.raw.simple_fragment_shader);
+
         int vertexShader = ShaderHelper.compileVertexShader(vertexShaderSource);
         int fragmentShader = ShaderHelper.compileFragmentShader(fragmentShaderSource);
+
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
         program = ShaderHelper.linkProgram(vertexShader, fragmentShader);
+
         if (LoggerConfig.ON) {
             ShaderHelper.validateProgram(program);
         }
+
         glUseProgram(program);
+
         aColorLocation = glGetAttribLocation(program, A_COLOR);
         aPositionLocation = glGetAttribLocation(program, A_POSITION);
+
         vertexData.position(0);
         glVertexAttribPointer(aPositionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, vertexData);
-        glEnableVertexAttribArray(aPositionLocation);
+
         vertexData.position(POSITION_COMPONENT_COUNT);
         glVertexAttribPointer(aColorLocation, COLOR_COMPONENT_COUNT, GL_FLOAT, false, STRIDE, vertexData);
+
         glEnableVertexAttribArray(aColorLocation);
+        glEnableVertexAttribArray(aPositionLocation);
     }
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
-// Set the OpenGL viewport to fill the entire surface.
+        // Set the OpenGL viewport to fill the entire surface.
         glViewport(0, 0, width, height);
     }
 
