@@ -2,6 +2,7 @@ package ffhs.ch.airhockey;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
+import android.opengl.Matrix;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -27,6 +28,7 @@ import static android.opengl.GLES20.glEnableVertexAttribArray;
 import static android.opengl.GLES20.glGetAttribLocation;
 import static android.opengl.GLES20.glGetUniformLocation;
 import static android.opengl.GLES20.glUniform4f;
+import static android.opengl.GLES20.glUniformMatrix4fv;
 import static android.opengl.GLES20.glUseProgram;
 import static android.opengl.GLES20.glVertexAttribPointer;
 import static android.opengl.GLES20.glViewport;
@@ -153,6 +155,8 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 gl) {
         // Clear the rendering surface.
         glClear(GL_COLOR_BUFFER_BIT);
+        // Send Matrix to the shader
+        glUniformMatrix4fv(uMatrixLocation, 1, false, projectionMatrix,0);
         // Drawing the Triangles
         glDrawArrays(GL_TRIANGLE_FAN, 0, 6);
         // Drawing the line 1
