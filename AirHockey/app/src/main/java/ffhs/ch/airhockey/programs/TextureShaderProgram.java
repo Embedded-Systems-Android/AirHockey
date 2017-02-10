@@ -10,6 +10,7 @@ import static android.opengl.GLES20.glActiveTexture;
 import static android.opengl.GLES20.glBindTexture;
 import static android.opengl.GLES20.glGetAttribLocation;
 import static android.opengl.GLES20.glGetUniformLocation;
+import static android.opengl.GLES20.glUniform1i;
 import static android.opengl.GLES20.glUniformMatrix4fv;
 
 /**
@@ -49,6 +50,14 @@ public class TextureShaderProgram extends ShaderProgram{
 
         // Tell the texture uniform sampler to use this texture in the shader by
         // telling it to read from texture unit 0
-        glUniformli(uTextureUnitLocation,0);
+        glUniform1i(uTextureUnitLocation,0);
+    }
+
+    public int getPositionAttributeLocation(){
+        return aPositionLocation;
+    }
+
+    public int getTextureCoordinatesAttributeLocation(){
+        return aTextureCoordinatesLocation;
     }
 }
