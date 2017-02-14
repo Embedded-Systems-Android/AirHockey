@@ -2,6 +2,7 @@ package ffhs.ch.airhockey.objects;
 
 import android.util.FloatMath;
 
+import java.io.ObjectStreamException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import static android.opengl.GLES20.GL_TRIANGLE_STRIP;
 import static android.opengl.GLES20.glDrawArrays;
 
 /**
- * Created by fb on 10.02.2017.
+ * Created by cyborg on 10.02.2017.
  */
 
 public class ObjectBuilder {
@@ -20,7 +21,7 @@ public class ObjectBuilder {
     private final float[] vertexData;
     private int offset = 0;
 
-    private final List<DrawCommand> drawList = new ArrayList<DrawCommand>()
+    private final List<DrawCommand> drawList = new ArrayList<DrawCommand>();
 
     private ObjectBuilder(int sizeInVertices){
         vertexData = new float[sizeInVertices * FLOATS_PER_VERTEX];
@@ -62,6 +63,29 @@ public class ObjectBuilder {
         return builder.build();
     }
 
+    static GeneratedData createMallet(Geometry.Point center, float radius, float height, int numPoints){
+        int size = sizeOfCircleInVertices(numPoints) * 2 + sizeOfOpenCylinderInVertices(numPoints) * 2;
+
+        ObjectBuilder builder = new ObjectBuilder(size);
+
+        // First, generate the mallet base
+        float baseHeight = height * 0.25f;
+
+        Geometry.Circle baseCircle = new Geometry.Circle(center.translateY(-baseHeight), radius);
+        Geometry.Cylinder baseCylinder = new Geometry.Cylinder(baseCircle.center.translateY(-baseHeight / 2f), radius, baseHeight);
+
+        float handleHeight = height * 0.75f;
+        float handleRadius = radius / 3f;
+
+        Geometry.Circle handleCircle = new Geometry.Circle(center.translateY(height * 0.5f), handleRadius);
+        Geometry.Cylinder handleCylinder = new Geometry.Cylinder(handleCircle.center.translateY(-handleHeight / 2f), handleRadius, handleHeight);
+
+        builder.appendCircle(handleCircle, numPoints);
+        builder.appendOpenCylinder(handleCylinder, numPoints);
+
+        return builder.build();
+    }
+
     private void appendCircle(Geometry.Circle circle, int numPoints){
         final int startVertex = offset / FLOATS_PER_VERTEX;
         final int numVertices = sizeOfCircleInVertices(numPoints);
@@ -97,8 +121,8 @@ public class ObjectBuilder {
 
         for (int i = 0; i <= numPoints; i++){
             float angleInRadians = ((float) i / (float) numPoints) * ((float) Math.PI * 2f);
-            float xPosition = cylinder.center.x + cylinder.radius * FloatMath.cos(angleInRadians);
-            float zPosition = cylinder.center.z + cylinder.radius * FloatMath.sin(angleInRadians);
+            float xPosition = cylinder.center.x + cylinder.radius * (float)Math.cos(angleInRadians);
+            float zPosition = cylinder.center.z + cylinder.radius * (float)Math.sin(angleInRadians);
 
             vertexData[offset++] = xPosition;
             vertexData[offset++] = yStart;
