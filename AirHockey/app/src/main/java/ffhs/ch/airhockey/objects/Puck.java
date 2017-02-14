@@ -5,7 +5,8 @@ import java.util.List;
 import ffhs.ch.airhockey.data.VertexArray;
 import ffhs.ch.airhockey.programs.ColorShaderProgram;
 import ffhs.ch.airhockey.util.Geometry;
-
+import ffhs.ch.airhockey.objects.ObjectBuilder.DrawCommand;
+import ffhs.ch.airhockey.objects.ObjectBuilder.GeneratedData;
 /**
  * Created by cyborg on 11.02.17.
  */
@@ -19,8 +20,8 @@ public class Puck {
     private final List<DrawCommand> drawList;
 
     public Puck(float radius, float height, int numPointsAroundPuck) {
-        GeneratedData generatedData = ObjectBuilder.createPuck(new Cylinder(
-                new Point(0f, 0f, 0f), radius, height), numPointsAroundPuck);
+        GeneratedData generatedData = ObjectBuilder.createPuck(new Geometry.Cylinder(
+                new Geometry.Point(0f, 0f, 0f), radius, height), numPointsAroundPuck);
 
         this.radius = radius;
         this.height = height;

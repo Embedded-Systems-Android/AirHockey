@@ -2,12 +2,6 @@ package ffhs.ch.airhockey;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-import android.opengl.Matrix;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.util.Vector;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -18,36 +12,21 @@ import ffhs.ch.airhockey.objects.Table;
 import ffhs.ch.airhockey.programs.ColorShaderProgram;
 import ffhs.ch.airhockey.programs.TextureShaderProgram;
 import ffhs.ch.airhockey.util.Geometry;
-import ffhs.ch.airhockey.util.LoggerConfig;
+import ffhs.ch.airhockey.util.Geometry.Point;
 import ffhs.ch.airhockey.util.MatrixHelper;
-import ffhs.ch.airhockey.util.ShaderHelper;
-import ffhs.ch.airhockey.util.TextResourceReader;
 import ffhs.ch.airhockey.util.TextureHelper;
 
 import static android.opengl.GLES20.GL_COLOR_BUFFER_BIT;
-import static android.opengl.GLES20.GL_FLOAT;
-import static android.opengl.GLES20.GL_LINES;
-import static android.opengl.GLES20.GL_POINTS;
-import static android.opengl.GLES20.GL_TRIANGLES;
-import static android.opengl.GLES20.GL_TRIANGLE_FAN;
 import static android.opengl.GLES20.glClear;
 import static android.opengl.GLES20.glClearColor;
-import static android.opengl.GLES20.glDrawArrays;
-import static android.opengl.GLES20.glEnableVertexAttribArray;
-import static android.opengl.GLES20.glGetAttribLocation;
-import static android.opengl.GLES20.glGetUniformLocation;
-import static android.opengl.GLES20.glUniform4f;
-import static android.opengl.GLES20.glUniformMatrix4fv;
-import static android.opengl.GLES20.glUseProgram;
-import static android.opengl.GLES20.glVertexAttribPointer;
 import static android.opengl.GLES20.glViewport;
+import static android.opengl.Matrix.invertM;
 import static android.opengl.Matrix.multiplyMM;
-import static android.opengl.Matrix.orthoM;
+import static android.opengl.Matrix.multiplyMV;
 import static android.opengl.Matrix.rotateM;
 import static android.opengl.Matrix.setIdentityM;
 import static android.opengl.Matrix.setLookAtM;
 import static android.opengl.Matrix.translateM;
-import static android.opengl.Matrix.transposeM;
 
 /**
  * Created by felix on 06.02.17.
@@ -83,7 +62,7 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
     private Geometry.Point previousBlueMalletPosition;
 
     private Geometry.Point puckPosition;
-    private Vector puckVector;
+    private Geometry.Vector puckVector;
 
     public AirHockeyRenderer(Context context) {
         this.context = context;
@@ -91,11 +70,11 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
 
     public void handleTouchPress(float normalizedX, float normalizedY) {
 
-        Ray ray = convertNormalized2DPointToRay(normalizedX, normalizedY);
+        Geometry.Ray ray = convertNormalized2DPointToRay(normalizedX, normalizedY);
 
         // Now test if this ray intersects with the mallet by creating a
         // bounding sphere that wraps the mallet.
-        Sphere malletBoundingSphere = new Sphere(new Geometry.Point(
+        Geometry.Sphere malletBoundingSphere = new Geometry.Sphere(new Geometry.Point(
                 blueMalletPosition.x,
                 blueMalletPosition.y,
                 blueMalletPosition.z),
@@ -107,7 +86,7 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
         malletPressed = Geometry.intersects(malletBoundingSphere, ray);
     }
 
-    private Ray convertNormalized2DPointToRay(
+    private Geometry.Ray convertNormalized2DPointToRay(
             float normalizedX, float normalizedY) {
         // We'll convert these normalized device coordinates into world-space
         // coordinates. We'll pick a point on the near and far planes, and draw a
@@ -133,13 +112,13 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
 
         // We don't care about the W value anymore, because our points are now
         // in world coordinates.
-        Point nearPointRay =
-                new Point(nearPointWorld[0], nearPointWorld[1], nearPointWorld[2]);
+        Geometry.Point nearPointRay =
+                new Geometry.Point(nearPointWorld[0], nearPointWorld[1], nearPointWorld[2]);
 
-        Point farPointRay =
-                new Point(farPointWorld[0], farPointWorld[1], farPointWorld[2]);
+        Geometry.Point farPointRay =
+                new Geometry.Point(farPointWorld[0], farPointWorld[1], farPointWorld[2]);
 
-        return new Ray(nearPointRay,
+        return new Geometry.Ray(nearPointRay,
                 Geometry.vectorBetween(nearPointRay, farPointRay));
     }
 
@@ -153,12 +132,12 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
     public void handleTouchDrag(float normalizedX, float normalizedY) {
 
         if (malletPressed) {
-            Ray ray = convertNormalized2DPointToRay(normalizedX, normalizedY);
+            Geometry.Ray ray = convertNormalized2DPointToRay(normalizedX, normalizedY);
             // Define a plane representing our air hockey table.
-            Plane plane = new Plane(new Point(0, 0, 0), new Vector(0, 1, 0));
+            Geometry.Plane plane = new Geometry.Plane(new Geometry.Point(0, 0, 0), new Geometry.Vector(0, 1, 0));
             // Find out where the touched point intersects the plane
             // representing our table. We'll move the mallet along this plane.
-            Point touchedPoint = Geometry.intersectionPoint(ray, plane);
+            Geometry.Point touchedPoint = Geometry.intersectionPoint(ray, plane);
             // Clamp to bounds
 
             previousBlueMalletPosition = blueMalletPosition;
@@ -167,7 +146,7 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
                 new Point(touchedPoint.x, mallet.height / 2f, touchedPoint.z);
             */
             // Clamp to bounds
-            blueMalletPosition = new Point(
+            blueMalletPosition = new Geometry.Point(
                     clamp(touchedPoint.x,
                             leftBound + mallet.radius,
                             rightBound - mallet.radius),
@@ -203,7 +182,7 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
 
         blueMalletPosition = new Point(0f, mallet.height / 2f, 0.4f);
         puckPosition = new Point(0f, puck.height / 2f, 0f);
-        puckVector = new Vector(0f, 0f, 0f);
+        puckVector = new Geometry.Vector(0f, 0f, 0f);
 
         textureProgram = new TextureShaderProgram(context);
         colorProgram = new ColorShaderProgram(context);
@@ -233,12 +212,12 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
         // If the puck struck a side, reflect it off that side.
         if (puckPosition.x < leftBound + puck.radius
                 || puckPosition.x > rightBound - puck.radius) {
-            puckVector = new Vector(-puckVector.x, puckVector.y, puckVector.z);
+            puckVector = new Geometry.Vector(-puckVector.x, puckVector.y, puckVector.z);
             puckVector = puckVector.scale(0.9f);
         }
         if (puckPosition.z < farBound + puck.radius
                 || puckPosition.z > nearBound - puck.radius) {
-            puckVector = new Vector(puckVector.x, puckVector.y, -puckVector.z);
+            puckVector = new Geometry.Vector(puckVector.x, puckVector.y, -puckVector.z);
             puckVector = puckVector.scale(0.9f);
         }
         // Clamp the puck position.

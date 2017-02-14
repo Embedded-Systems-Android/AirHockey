@@ -27,7 +27,7 @@ import static android.opengl.GLES20.glValidateProgram;
  * Created by felix on 07.02.17.
  */
 
-ublic class ShaderHelper {
+public class ShaderHelper {
     private static final String TAG = "ShaderHelper";
 
     /**

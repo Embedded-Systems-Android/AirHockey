@@ -1,6 +1,7 @@
 package ffhs.ch.airhockey.util;
 
 import android.telephony.CellIdentityCdma;
+import android.util.FloatMath;
 
 /**
  * Created by fb on 10.02.2017.
@@ -38,7 +39,7 @@ public class Geometry {
         }
 
         public float length() {
-            return FloatMath.sqrt(
+            return (float)Math.sqrt(
                     x * x
                             + y * y
                             + z * z);
