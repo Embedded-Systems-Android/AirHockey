@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">AirHockey</string>
+
+    <!-- Startscreen Text -->
+    <string name="newgame">Neues Spiel</string>
+    <string name="score_ranking_anzeigen">Score Ranking anzeigen</string>
+    <string name="settings">Einstellungen</string>
+    <string name="resume_game">Weiterspielen</string>
+    <string name="test_DB">Datenbank testen</string>
+
+    <!-- Settings Text -->
+    <string name="change_color">Ändere Farben</string>
+
+    <!-- Score Text -->
+    <string name="score_ranking">Score Ranking</string>
 </resources>

@@ -6,6 +6,7 @@ import android.opengl.GLSurfaceView;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import ffhs.ch.airhockey.R;
 import ffhs.ch.airhockey.objects.Mallet;
 import ffhs.ch.airhockey.objects.Puck;
 import ffhs.ch.airhockey.objects.Table;

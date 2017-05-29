@@ -1,7 +1,5 @@
 package ffhs.ch.airhockey.objects;
 
-import android.app.ActionBar;
-
 import ffhs.ch.airhockey.data.VertexArray;
 import ffhs.ch.airhockey.programs.TextureShaderProgram;
 
