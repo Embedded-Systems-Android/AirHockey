@@ -3,7 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <TextView
         android:id="@+id/scoreHeader"
         android:layout_width="wrap_content"
@@ -19,28 +18,21 @@
             android:id="@+id/datebankFuellen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DB Fuellen"
+            android:text="@string/db_fuellen"
             android:onClick="datenbankTesten"/>
 
         <Button
             android:id="@+id/datenbankLeeren"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DB leeren"
+            android:text="@string/db_leeren"
             android:onClick="datenbankLeeren"/>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/testtest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <ListView
         android:id="@android:id/list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
 
 </LinearLayout>

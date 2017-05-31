@@ -11,6 +11,7 @@ import android.util.Log;
 
 public class AirHockeyDatenbank extends SQLiteOpenHelper {
 
+
     private static final String DATENBANK_NAME = "airhockey.db";
     private static final int DATENBANK_VERSION = 1;
 
@@ -34,7 +35,7 @@ public class AirHockeyDatenbank extends SQLiteOpenHelper {
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(SQLiteOpenHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will delete old data");
+        Log.w(SQLiteOpenHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion + " , which will delete old data");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SCORE);
         onCreate(db);
     }

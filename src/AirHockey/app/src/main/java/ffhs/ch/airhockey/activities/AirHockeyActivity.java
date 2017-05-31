@@ -1,4 +1,4 @@
-package ffhs.ch.airhockey;
+package ffhs.ch.airhockey.activities;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
+
+import ffhs.ch.airhockey.AirHockeyRenderer;
 
 public class AirHockeyActivity extends Activity {
     /**
@@ -119,6 +121,7 @@ public class AirHockeyActivity extends Activity {
         if (rendererSet) {
             glSurfaceView.onPause();
         }
+
     }
 
     @Override

@@ -1,26 +1,23 @@
-package ffhs.ch.airhockey;
+package ffhs.ch.airhockey.activities;
 
 import android.app.ListActivity;
-import android.database.Cursor;
-import android.net.Uri;
+
 import android.os.Bundle;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
+
+import android.provider.ContactsContract;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
+
+import ffhs.ch.airhockey.R;
 import ffhs.ch.airhockey.database.Score;
 import ffhs.ch.airhockey.database.ScoreDataSource;
+import ffhs.ch.airhockey.util.DatabaseCustomAdapter;
 
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 /**
  * Created by Sandro on 04.03.2017.
@@ -36,15 +33,14 @@ public class ScoreRankingScreen extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.scoreranking);
+        setContentView(R.layout.database_listview);
 
         datasource = new ScoreDataSource(this);
         datasource.open();
 
-        List<Score> values = datasource.getAllScores();
+        ArrayList<Score> values = (ArrayList<Score>) datasource.getAllScores();
 
-        // SimpleCursorAdapter um Elemente der Datenbank in der Liste anzuzeigen
-        ArrayAdapter<Score> adapter = new ArrayAdapter<Score>(this, android.R.layout.simple_list_item_2, android.R.id.text1, values);
+        DatabaseCustomAdapter adapter = new DatabaseCustomAdapter(this, values);
         setListAdapter(adapter);
     }
 
@@ -53,11 +49,15 @@ public class ScoreRankingScreen extends ListActivity {
      // 2 Test Methoden um Datenbank zu füllen / leeren
     public void datenbankTesten(View view) {
         ArrayAdapter<Score> adapter = (ArrayAdapter<Score>) getListAdapter();
-        Score score = null;
+        Score score;
 
-        String[] names = new String[] {"Sandro"};
-        String[] scores = new String[] {"1234"};
+        String[] names = new String[] {"Sandro", "Felix", "Markus"};
+        String[] scores = new String[] {"1234", "1333", "4132"};
         score = datasource.createScore(names[0],scores[0]);
+        adapter.add(score);
+        score = datasource.createScore(names[1],scores[1]);
+        adapter.add(score);
+        score = datasource.createScore(names[2],scores[2]);
         adapter.add(score);
 
         adapter.notifyDataSetChanged();
@@ -65,7 +65,7 @@ public class ScoreRankingScreen extends ListActivity {
 
     public void datenbankLeeren(View view) {
         ArrayAdapter<Score> adapter = (ArrayAdapter<Score>) getListAdapter();
-        Score score = null;
+        Score score;
 
         if (getListAdapter().getCount() > 0) {
             score = (Score) getListAdapter().getItem(0);

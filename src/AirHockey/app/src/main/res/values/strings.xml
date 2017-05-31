@@ -9,8 +9,15 @@
     <string name="test_DB">Datenbank testen</string>
 
     <!-- Settings Text -->
-    <string name="change_color">Ändere Farben</string>
+    <string name="sprache">Sprache</string>
+    <string name="sprache_waehlen">Wählen Sie die Sprache der Applikation aus</string>
 
     <!-- Score Text -->
     <string name="score_ranking">Score Ranking</string>
+
+    <!-- Datenbank ListView -->
+    <string name="db_fuellen">DB füllen</string>
+    <string name="db_leeren">DB leeren</string>
+
+    <!--  -->
 </resources>

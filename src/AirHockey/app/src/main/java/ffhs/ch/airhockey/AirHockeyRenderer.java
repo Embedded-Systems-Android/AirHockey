@@ -188,6 +188,7 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
         textureProgram = new TextureShaderProgram(context);
         colorProgram = new ColorShaderProgram(context);
 
+        // das Spielbrett als .png
         texture = TextureHelper.loadTexture(context, R.drawable.air_hockey_surface);
     }
 
@@ -201,6 +202,20 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
 
         setLookAtM(viewMatrix, 0, 0f, 1.2f, 2.2f, 0f, 0f, 0f, 0f, 1f, 0f);
     }
+
+
+    // fixed values for colors of mallets and puck
+    public float colorRMalletEnemy = 0.2f;
+    public float colorGMalletEnemy = 0.2f;
+    public float colorBMalletEnemy = 0.8f;
+    public float colorRMalletOwn = 0.2f;
+    public float colorGMalletOwn = 0.8f;
+    public float colorBMalletOwn = 0.2f;
+    public float colorRPuck = 0.2f;
+    public float colorGPuck = 0.2f;
+    public float colorBPuck = 0.2f;
+
+
 
     @Override
     public void onDrawFrame(GL10 glUnused) {
@@ -247,13 +262,15 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
         // Draw the mallets.
         positionObjectInScene(0f, mallet.height / 2f, -0.4f);
         colorProgram.useProgram();
-        colorProgram.setUniforms(modelViewProjectionMatrix, 1f, 0f, 0f);
+        // Color of enemy mallet
+        colorProgram.setUniforms(modelViewProjectionMatrix, colorRMalletEnemy, colorGMalletEnemy, colorBMalletEnemy);
         mallet.bindData(colorProgram);
         mallet.draw();
 
         positionObjectInScene(blueMalletPosition.x, blueMalletPosition.y,
                 blueMalletPosition.z);
-        colorProgram.setUniforms(modelViewProjectionMatrix, 0f, 0f, 1f);
+        // Color of own mallet
+        colorProgram.setUniforms(modelViewProjectionMatrix, colorRMalletOwn, colorGMalletOwn, colorBMalletOwn);
         // Note that we don't have to define the object data twice -- we just
         // draw the same mallet again but in a different position and with a
         // different color.
@@ -261,7 +278,7 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
 
         // Draw the puck.
         positionObjectInScene(puckPosition.x, puckPosition.y, puckPosition.z);
-        colorProgram.setUniforms(modelViewProjectionMatrix, 0.8f, 0.8f, 1f);
+        colorProgram.setUniforms(modelViewProjectionMatrix, colorRPuck, colorGPuck, colorBPuck);
         puck.bindData(colorProgram);
         puck.draw();
     }
@@ -281,5 +298,11 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
         translateM(modelMatrix, 0, x, y, z);
         multiplyMM(modelViewProjectionMatrix, 0, viewProjectionMatrix,
                 0, modelMatrix, 0);
+    }
+
+    public void changeColor(float r, float g, float b) {
+        colorRPuck = r;
+        colorGPuck = g;
+        colorBPuck = b;
     }
 }

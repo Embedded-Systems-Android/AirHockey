@@ -1,4 +1,4 @@
-package ffhs.ch.airhockey;
+package ffhs.ch.airhockey.data;
 
 /**
  * Created by fb on 09.02.2017.

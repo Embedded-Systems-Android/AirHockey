@@ -7,7 +7,7 @@ import java.nio.FloatBuffer;
 import static android.opengl.GLES20.GL_FLOAT;
 import static android.opengl.GLES20.glEnableVertexAttribArray;
 import static android.opengl.GLES20.glVertexAttribPointer;
-import static ffhs.ch.airhockey.Constants.BYTES_PER_FLOAT;
+import static ffhs.ch.airhockey.data.Constants.BYTES_PER_FLOAT;
 
 /**
  * Created by fb on 09.02.2017.

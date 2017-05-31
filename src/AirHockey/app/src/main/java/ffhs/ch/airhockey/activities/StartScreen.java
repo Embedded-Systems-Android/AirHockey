@@ -1,15 +1,12 @@
-package ffhs.ch.airhockey;
+package ffhs.ch.airhockey.activities;
 
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import ffhs.ch.airhockey.R;
-import ffhs.ch.airhockey.database.Score;
-import ffhs.ch.airhockey.database.ScoreDataSource;
 
 /**
  * Created by Sandro on 04.03.2017.
@@ -41,7 +38,7 @@ public class StartScreen extends AppCompatActivity {
     }
 
     public void onClickSettingsButton(final View sfNormal) {
-        Intent i = new Intent(this, SettingScreen.class);
+        Intent i = new Intent(this, PreferencesScreen.class);
         startActivity(i);
     }
 

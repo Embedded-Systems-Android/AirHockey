@@ -8,16 +8,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StartScreen">
+        <activity android:name=".activities.StartScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AirHockeyActivity" />
-        <activity android:name=".ScoreRankingScreen" />
-        <activity android:name=".SettingScreen" />
+        <activity android:name=".activities.AirHockeyActivity"
+            android:launchMode="singleInstance" />
+        <activity android:name=".activities.ScoreRankingScreen" />
+        <activity android:name=".activities.PreferencesScreen" />
 
     </application>
 

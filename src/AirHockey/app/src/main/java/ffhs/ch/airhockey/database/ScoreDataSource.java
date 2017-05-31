@@ -18,7 +18,9 @@ public class ScoreDataSource {
 
     private SQLiteDatabase database;
     private AirHockeyDatenbank dbHelper;
-    private String[] allColumns = {dbHelper.COLUMN_ID, dbHelper.COLUMN_NAME, dbHelper.COLUMN_SCORE};
+    public String[] allColumns = {dbHelper.COLUMN_ID, dbHelper.COLUMN_NAME, dbHelper.COLUMN_SCORE};
+    public Cursor cursor;
+
 
     public ScoreDataSource(Context context) {
         dbHelper = new AirHockeyDatenbank(context);
@@ -38,7 +40,7 @@ public class ScoreDataSource {
         cv.put(dbHelper.COLUMN_SCORE, score);
         long insertId = database.insert(AirHockeyDatenbank.TABLE_SCORE, null, cv);
 
-        Cursor cursor = database.query(AirHockeyDatenbank.TABLE_SCORE, allColumns, dbHelper.COLUMN_ID + " = " + insertId, null, null, null, null);
+        cursor = database.query(AirHockeyDatenbank.TABLE_SCORE, allColumns, dbHelper.COLUMN_ID + " = " + insertId, null, null, null, null);
         cursor.moveToFirst();
         Score newScore = cursorToScore(cursor);
         cursor.close();
@@ -55,7 +57,7 @@ public class ScoreDataSource {
     public List<Score> getAllScores() {
         List<Score> scores = new ArrayList<Score>();
 
-        Cursor cursor = database.query(dbHelper.TABLE_SCORE, allColumns, null, null, null, null, null);
+        cursor = database.query(dbHelper.TABLE_SCORE, allColumns, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
