@@ -4,13 +4,11 @@ import android.app.ListActivity;
 
 import android.os.Bundle;
 
-import android.provider.ContactsContract;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 import ffhs.ch.airhockey.R;
@@ -21,6 +19,8 @@ import ffhs.ch.airhockey.util.DatabaseCustomAdapter;
 
 /**
  * Created by Sandro on 04.03.2017.
+ *
+ * Activity for the Score Screen
  */
 
 public class ScoreRankingScreen extends ListActivity {
@@ -28,25 +28,25 @@ public class ScoreRankingScreen extends ListActivity {
     private ScoreDataSource datasource;
 
 
-
+    // Creates the Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // Sets the View to the predefined layout
         setContentView(R.layout.database_listview);
-
+        // creates an instance of the ScoreDataSource-Helper and opens the database
         datasource = new ScoreDataSource(this);
         datasource.open();
-
+        // Creates an ArrayList out of the data in the database
         ArrayList<Score> values = (ArrayList<Score>) datasource.getAllScores();
-
+        // Adapter refers the values to the correct ListView
         DatabaseCustomAdapter adapter = new DatabaseCustomAdapter(this, values);
         setListAdapter(adapter);
     }
 
 
 
-     // 2 Test Methoden um Datenbank zu füllen / leeren
+    // Method to fill the database with testvalues
     public void datenbankTesten(View view) {
         ArrayAdapter<Score> adapter = (ArrayAdapter<Score>) getListAdapter();
         Score score;
@@ -62,7 +62,7 @@ public class ScoreRankingScreen extends ListActivity {
 
         adapter.notifyDataSetChanged();
     }
-
+    // Method to empty the database from the testvalues
     public void datenbankLeeren(View view) {
         ArrayAdapter<Score> adapter = (ArrayAdapter<Score>) getListAdapter();
         Score score;

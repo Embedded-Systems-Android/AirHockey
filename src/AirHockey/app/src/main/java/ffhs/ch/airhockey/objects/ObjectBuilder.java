@@ -1,8 +1,6 @@
 package ffhs.ch.airhockey.objects;
 
-import android.util.FloatMath;
 
-import java.io.ObjectStreamException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +12,8 @@ import static android.opengl.GLES20.glDrawArrays;
 
 /**
  * Created by cyborg on 10.02.2017.
+ *
+ * BuilderClass which builds Objects of Mallets and Puck.
  */
 
 class ObjectBuilder {

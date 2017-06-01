@@ -11,6 +11,8 @@ import static ffhs.ch.airhockey.data.Constants.BYTES_PER_FLOAT;
 
 /**
  * Created by fb on 09.02.2017.
+ *
+ *
  */
 
 public class VertexArray {

@@ -11,7 +11,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import ffhs.ch.airhockey.AirHockeyRenderer;
+import ffhs.ch.airhockey.util.AirHockeyRenderer;
+
+/**
+ *
+ * Activity to show the GameScreen
+ */
 
 public class AirHockeyActivity extends Activity {
     /**

@@ -17,6 +17,9 @@ import ffhs.ch.airhockey.database.Score;
 
 /**
  * Created by Sandro on 30.05.2017.
+ *
+ * CustomAdapter which is used to correctly show both columns "name" and "score" from Database
+ * in the ListView
  */
 
 public class DatabaseCustomAdapter extends ArrayAdapter<Score> {

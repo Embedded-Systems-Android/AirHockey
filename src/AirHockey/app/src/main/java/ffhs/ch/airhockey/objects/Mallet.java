@@ -9,6 +9,8 @@ import ffhs.ch.airhockey.objects.ObjectBuilder.GeneratedData;
 import ffhs.ch.airhockey.objects.ObjectBuilder.DrawCommand;
 /**
  * Created by fb on 09.02.2017.
+ *
+ * Class which defines the Mallets
  */
 
 public class Mallet {

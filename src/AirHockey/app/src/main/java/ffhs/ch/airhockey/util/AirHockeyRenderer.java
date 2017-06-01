@@ -1,4 +1,4 @@
-package ffhs.ch.airhockey;
+package ffhs.ch.airhockey.util;
 
 import android.content.Context;
 import android.opengl.GLSurfaceView;
@@ -19,6 +19,7 @@ import ffhs.ch.airhockey.util.Geometry.Point;
 import ffhs.ch.airhockey.util.MatrixHelper;
 import ffhs.ch.airhockey.util.TextureHelper;
 
+
 import static android.opengl.GLES20.GL_COLOR_BUFFER_BIT;
 import static android.opengl.GLES20.glClear;
 import static android.opengl.GLES20.glClearColor;
@@ -33,6 +34,8 @@ import static android.opengl.Matrix.translateM;
 
 /**
  * Created by felix on 06.02.17.
+ *
+ * Class which renderers the whole GameScreen
  */
 
 public class AirHockeyRenderer implements GLSurfaceView.Renderer {
@@ -162,13 +165,12 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
             float distance =
                     Geometry.vectorBetween(blueMalletPosition, puckPosition).length();
 
-
             if (distance < (puck.radius + mallet.radius)) {
                 // The mallet has struck the puck. Now send the puck flying
                 // based on the mallet velocity.
                 puckVector = Geometry.vectorBetween(
                         previousBlueMalletPosition, blueMalletPosition);
-                Log.d("puck", String.valueOf(puckVector));
+						Log.d("puck", String.valueOf(puckVector));
             }
         }
     }

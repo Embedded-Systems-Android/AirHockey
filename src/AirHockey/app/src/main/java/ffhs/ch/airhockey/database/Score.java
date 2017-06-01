@@ -2,6 +2,8 @@ package ffhs.ch.airhockey.database;
 
 /**
  * Created by Sandro on 29.05.2017.
+ *
+ * Scheme for the Scores
  */
 
 public class Score {
