@@ -15,8 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.AirHockeyActivity"
-            android:launchMode="singleInstance" />
+        <activity android:name=".activities.AirHockeyActivity" />
         <activity android:name=".activities.ScoreRankingScreen" />
         <activity android:name=".activities.PreferencesScreen" />
 

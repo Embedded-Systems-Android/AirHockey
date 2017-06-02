@@ -8,11 +8,17 @@ import android.content.pm.ConfigurationInfo;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import ffhs.ch.airhockey.database.Score;
+import ffhs.ch.airhockey.database.ScoreDataSource;
 import ffhs.ch.airhockey.util.AirHockeyRenderer;
+import ffhs.ch.airhockey.util.DatabaseCustomAdapter;
 
 /**
  *
@@ -25,6 +31,10 @@ public class AirHockeyActivity extends Activity {
      */
     private GLSurfaceView glSurfaceView;
     private boolean rendererSet = false;
+    int counter = 0;
+    private String score = "Score: " + counter;
+    private ScoreDataSource datasource;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +64,7 @@ public class AirHockeyActivity extends Activity {
 
         final AirHockeyRenderer airHockeyRenderer = new AirHockeyRenderer(this);
 
+
         if (supportsEs2) {
             // ...
             // Request an OpenGL ES 2.0 compatible context.
@@ -62,6 +73,11 @@ public class AirHockeyActivity extends Activity {
             // Assign our renderer.
             glSurfaceView.setRenderer(airHockeyRenderer);
             rendererSet = true;
+
+
+
+            Toast.makeText(this, score, Toast.LENGTH_SHORT);
+
         } else {
             /*
              * This is where you could create an OpenGL ES 1.x compatible

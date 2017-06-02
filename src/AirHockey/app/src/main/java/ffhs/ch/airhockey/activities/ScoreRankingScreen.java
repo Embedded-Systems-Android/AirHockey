@@ -48,7 +48,7 @@ public class ScoreRankingScreen extends ListActivity {
 
     // Method to fill the database with testvalues
     public void datenbankTesten(View view) {
-        ArrayAdapter<Score> adapter = (ArrayAdapter<Score>) getListAdapter();
+        DatabaseCustomAdapter adapter =  (DatabaseCustomAdapter) getListAdapter();
         Score score;
 
         String[] names = new String[] {"Sandro", "Felix", "Markus"};

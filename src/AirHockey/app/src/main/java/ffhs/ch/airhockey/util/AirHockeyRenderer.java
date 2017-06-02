@@ -240,10 +240,11 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
 
         // Check if Scored!!
         // TODO put this count in DB
-        if (puckPosition.z < -0.74){
+        /**if (puckPosition.z < -0.74){
             counter++;
             Log.d("puckPosition", "Score: " + String.valueOf(counter));
-        }
+        }**/
+        checkScore();
 
         // If the puck struck a side, reflect it off that side.
         if (puckPosition.x < leftBound + puck.radius
@@ -301,7 +302,19 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
         colorProgram.setUniforms(modelViewProjectionMatrix, colorRPuck, colorGPuck, colorBPuck);
         puck.bindData(colorProgram);
         puck.draw();
+
     }
+
+    public int checkScore() {
+        if (puckPosition.z < -0.74 && (puckPosition.x < 0.15 && puckPosition.x > -0.15) ){
+            counter++;
+            Log.d("puckPosition", "Score: " + String.valueOf(counter));
+        }
+
+        return counter;
+    }
+
+
 
     private void positionTableInScene() {
         // The table is defined in terms of X & Y coordinates, so we rotate it
