@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">AirHockey</string>
+
+    <!-- Startscreen Text -->
+    <string name="newgame">Neues Spiel</string>
+    <string name="score_ranking_anzeigen">Score Ranking anzeigen</string>
+    <string name="settings">Einstellungen</string>
+    <string name="resume_game">Weiterspielen</string>
+    <string name="test_DB">Datenbank testen</string>
+
+    <!-- Settings Text -->
+    <string name="sprache">Sprache</string>
+    <string name="sprache_waehlen">Wählen Sie die Sprache der Applikation aus</string>
+
+    <!-- Score Text -->
+    <string name="score_ranking">Score Ranking</string>
+
+    <!-- Datenbank ListView -->
+    <string name="db_fuellen">DB füllen</string>
+    <string name="db_leeren">DB leeren</string>
+
+    <!--  -->
 </resources>

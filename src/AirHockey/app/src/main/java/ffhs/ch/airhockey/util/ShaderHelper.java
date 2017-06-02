@@ -2,8 +2,6 @@ package ffhs.ch.airhockey.util;
 
 import android.util.Log;
 
-import ffhs.ch.airhockey.AirHockeyRenderer;
-
 import static android.opengl.GLES20.GL_COMPILE_STATUS;
 import static android.opengl.GLES20.GL_FRAGMENT_SHADER;
 import static android.opengl.GLES20.GL_LINK_STATUS;

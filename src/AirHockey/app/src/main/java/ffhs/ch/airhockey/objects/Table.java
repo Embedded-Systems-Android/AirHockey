@@ -1,16 +1,16 @@
 package ffhs.ch.airhockey.objects;
 
-import android.app.ActionBar;
-
 import ffhs.ch.airhockey.data.VertexArray;
 import ffhs.ch.airhockey.programs.TextureShaderProgram;
 
 import static android.opengl.GLES20.GL_TRIANGLE_FAN;
 import static android.opengl.GLES20.glDrawArrays;
-import static ffhs.ch.airhockey.Constants.BYTES_PER_FLOAT;
+import static ffhs.ch.airhockey.data.Constants.BYTES_PER_FLOAT;
 
 /**
  * Created by fb on 09.02.2017.
+ *
+ * Class which defines the Table
  */
 
 public class Table {

@@ -9,6 +9,8 @@ import ffhs.ch.airhockey.objects.ObjectBuilder.DrawCommand;
 import ffhs.ch.airhockey.objects.ObjectBuilder.GeneratedData;
 /**
  * Created by cyborg on 11.02.17.
+ *
+ * Class which defines the Puck
  */
 
 public class Puck {

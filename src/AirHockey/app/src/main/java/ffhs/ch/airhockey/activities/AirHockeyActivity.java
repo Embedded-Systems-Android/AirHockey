@@ -1,8 +1,9 @@
-package ffhs.ch.airhockey;
+package ffhs.ch.airhockey.activities;
 
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.pm.ConfigurationInfo;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
@@ -10,6 +11,13 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
+
+import ffhs.ch.airhockey.util.AirHockeyRenderer;
+
+/**
+ *
+ * Activity to show the GameScreen
+ */
 
 public class AirHockeyActivity extends Activity {
     /**
@@ -21,6 +29,7 @@ public class AirHockeyActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         glSurfaceView = new GLSurfaceView(this);
 
@@ -119,6 +128,7 @@ public class AirHockeyActivity extends Activity {
         if (rendererSet) {
             glSurfaceView.onPause();
         }
+
     }
 
     @Override
