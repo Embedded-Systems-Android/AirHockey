@@ -34,7 +34,7 @@ import static android.opengl.Matrix.translateM;
 
 /**
  * Created by felix on 06.02.17.
- *
+ * <p>
  * Class which renderers the whole GameScreen
  */
 
@@ -70,6 +70,8 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
     private Geometry.Point puckPosition;
     private Geometry.Vector puckVector;
 
+    private int counter = 0;
+
     public AirHockeyRenderer(Context context) {
         this.context = context;
     }
@@ -99,7 +101,7 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
         // line between them. To do this transform, we need to first multiply by
         // the inverse matrix, and then we need to undo the perspective divide.
         final float[] nearPointNdc = {normalizedX, normalizedY, -1, 1};
-        final float[] farPointNdc =  {normalizedX, normalizedY,  1, 1};
+        final float[] farPointNdc = {normalizedX, normalizedY, 1, 1};
 
         final float[] nearPointWorld = new float[4];
         final float[] farPointWorld = new float[4];
@@ -170,8 +172,14 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
                 // based on the mallet velocity.
                 puckVector = Geometry.vectorBetween(
                         previousBlueMalletPosition, blueMalletPosition);
-						Log.d("puck", String.valueOf(puckVector));
+
             }
+
+            float distance2 = Geometry.vectorBetween(blueMalletPosition, puckPosition).length();
+            if (distance2 < 0.15) {
+                counter++;
+            }
+            Log.d("puck", String.valueOf(distance2 + counter));
         }
     }
 
@@ -220,7 +228,6 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
     public float colorRPuck = 0.2f;
     public float colorGPuck = 0.2f;
     public float colorBPuck = 0.2f;
-
 
 
     @Override
