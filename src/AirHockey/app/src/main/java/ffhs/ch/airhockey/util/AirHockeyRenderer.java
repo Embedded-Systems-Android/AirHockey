@@ -175,11 +175,11 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
 
             }
 
-            float distance2 = Geometry.vectorBetween(blueMalletPosition, puckPosition).length();
-            if (distance2 < 0.15) {
-                counter++;
-            }
-            Log.d("puck", String.valueOf(distance2 + counter));
+//            float distance2 = Geometry.vectorBetween(blueMalletPosition, puckPosition).length();
+//            if (distance2 < 0.15) {
+//                counter++;
+//            }
+//            Log.d("puck", String.valueOf(distance2 + counter));
         }
     }
 
@@ -237,6 +237,13 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
 
         // Translate the puck by its vector
         puckPosition = puckPosition.translate(puckVector);
+
+        // Check if Scored!!
+        // TODO put this count in DB
+        if (puckPosition.z < -0.74){
+            counter++;
+            Log.d("puckPosition", "Score: " + String.valueOf(counter));
+        }
 
         // If the puck struck a side, reflect it off that side.
         if (puckPosition.x < leftBound + puck.radius
