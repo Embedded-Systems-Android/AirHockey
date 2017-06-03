@@ -55,6 +55,19 @@ public class ScoreDataSource {
         return newScore;
 
     }
+
+    public void updateScore(String name, String score){
+        ContentValues cv = new ContentValues();
+        cv.put(dbHelper.COLUMN_NAME, name);
+        cv.put(dbHelper.COLUMN_SCORE, score);
+
+        database.update(AirHockeyDatenbank.TABLE_SCORE, cv, "name = Sandro", null);
+
+
+
+    }
+
+
     // delete the Score
     public void deleteScore(Score score) {
         // scoreId is searched and saved into variable

@@ -9,6 +9,8 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 import ffhs.ch.airhockey.R;
+import ffhs.ch.airhockey.database.ScoreDataSource;
+import ffhs.ch.airhockey.util.DatabaseCustomAdapter;
 import ffhs.ch.airhockey.objects.Mallet;
 import ffhs.ch.airhockey.objects.Puck;
 import ffhs.ch.airhockey.objects.Table;
@@ -70,7 +72,16 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
     private Geometry.Point puckPosition;
     private Geometry.Vector puckVector;
 
-    private int counter = 0;
+    private int counterOwn = 0;
+    private int counterEnemy = 0;
+    private ScoreDataSource datasource;
+
+
+
+
+
+
+
 
     public AirHockeyRenderer(Context context) {
         this.context = context;
@@ -204,6 +215,9 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
 
         // das Spielbrett als .png
         texture = TextureHelper.loadTexture(context, R.drawable.air_hockey_surface);
+
+        putScore();
+
     }
 
     @Override
@@ -215,6 +229,8 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
                 / (float) height, 1f, 10f);
 
         setLookAtM(viewMatrix, 0, 0f, 1.2f, 2.2f, 0f, 0f, 0f, 0f, 1f, 0f);
+
+
     }
 
 
@@ -303,15 +319,38 @@ public class AirHockeyRenderer implements GLSurfaceView.Renderer {
         puck.bindData(colorProgram);
         puck.draw();
 
+
+
     }
 
-    public int checkScore() {
-        if (puckPosition.z < -0.74 && (puckPosition.x < 0.15 && puckPosition.x > -0.15) ){
-            counter++;
-            Log.d("puckPosition", "Score: " + String.valueOf(counter));
-        }
+    private void checkScore() {
 
-        return counter;
+        if (puckPosition.z < -0.74 && (puckPosition.x < 0.15 && puckPosition.x > -0.15) ){
+            counterOwn++;
+            Log.d("puckPosition", "Eigener Score: " + String.valueOf(counterOwn));
+        }
+        if (puckPosition.z > 0.74 && (puckPosition.x < 0.15 && puckPosition.x > -0.15) ){
+            counterEnemy++;
+            Log.d("puckPosition", "Score des Gegners: " + String.valueOf(counterEnemy));
+        }
+    }
+
+    private void updateScore(){
+
+        if (counterOwn == 3 ){
+            ScoreDataSource datasource = new ScoreDataSource(context);
+            datasource.open();
+            datasource.updateScore("Spieler", String.valueOf(counterOwn));
+            datasource.close();
+        }
+    }
+
+    private void putScore() {
+        ScoreDataSource datasource = new ScoreDataSource(context);
+        datasource.open();
+        datasource.createScore("Spieler", String.valueOf(counterOwn));
+        datasource.close();
+
     }
 
 

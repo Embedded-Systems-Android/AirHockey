@@ -31,9 +31,7 @@ public class AirHockeyActivity extends Activity {
      */
     private GLSurfaceView glSurfaceView;
     private boolean rendererSet = false;
-    int counter = 0;
-    private String score = "Score: " + counter;
-    private ScoreDataSource datasource;
+
 
 
     @Override
@@ -73,10 +71,6 @@ public class AirHockeyActivity extends Activity {
             // Assign our renderer.
             glSurfaceView.setRenderer(airHockeyRenderer);
             rendererSet = true;
-
-
-
-            Toast.makeText(this, score, Toast.LENGTH_SHORT);
 
         } else {
             /*

@@ -68,9 +68,11 @@ public class ScoreRankingScreen extends ListActivity {
         Score score;
 
         if (getListAdapter().getCount() > 0) {
-            score = (Score) getListAdapter().getItem(0);
+            while(getListAdapter().getCount() > 0){
+                score = (Score) getListAdapter().getItem(0);
+
             datasource.deleteScore(score);
-            adapter.remove(score);
+            adapter.remove(score);            }
         }
 
         adapter.notifyDataSetChanged();
